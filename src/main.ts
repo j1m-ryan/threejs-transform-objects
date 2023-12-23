@@ -9,8 +9,10 @@ function main() {
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
 
-  const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 5);
+  const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 50);
   camera.position.z = 2;
+  camera.position.x = 0.1;
+  camera.position.y = 0.1;
 
   const scene = new THREE.Scene();
 
@@ -18,9 +20,17 @@ function main() {
 
   const geometry = new THREE.BoxGeometry();
 
-  const cube = new THREE.Mesh(geometry, material);
+  const group = new THREE.Group();
+  scene.add(group);
 
-  scene.add(cube);
+  const cube1 = new THREE.Mesh(geometry, material);
+  const cube2 = new THREE.Mesh(geometry, material);
+  cube2.position.x = 2;
+
+  group.add(cube1);
+  group.add(cube2);
+  const axesHelper = new THREE.AxesHelper();
+  scene.add(axesHelper);
 
   const color = 0xffffff;
   const intensity = 3;
@@ -41,8 +51,8 @@ function main() {
 
   function render(time: number) {
     time *= 0.001;
-    cube.rotation.x = time;
-    cube.rotation.y = time;
+    // cube.rotation.x = time;
+    // cube.rotation.y = time;
 
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;
